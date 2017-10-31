@@ -1,4 +1,4 @@
-const {fetchThreads, fetchThreadsById, fetchArticlesByThreadId, fetchKeywordsByThreadId, updateThreads} = require('../models/threads'); 
+const {fetchThreads, fetchThreadsById, fetchArticlesByThreadId, fetchKeywordsByThreadId, updateThreads, addArticleToThread} = require('../models/threads'); 
 
 const getThreads = (req, res) => {
     const {count, unnamed, summary} = req.query;
@@ -32,6 +32,13 @@ const patchThreads = (req, res) => {
         .then(updatedThread => res.send(updatedThread))
 }
 
+const addArticle = (req, res) => {
+    const body = req.body;
+    const id = req.query.id;     
+    addArticleToThread(body, id)
+        .then(updatedThread => res.send(updatedThread))
+}
 
-module.exports={getThreads, getThreadsById, getArticlesByThreadId, getKeywordsByThreadId, patchThreads}; 
+
+module.exports={getThreads, getThreadsById, getArticlesByThreadId, getKeywordsByThreadId, patchThreads, addArticle}; 
 

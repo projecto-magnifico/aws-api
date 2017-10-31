@@ -40,5 +40,9 @@ const updateThreads = (body, id) => {
         })
 }
 
+const addArticleToThread = (article, id) => {
+    return db.one('INSERT INTO articles (thread_id, title, description, url, age, source_id, img_url) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *;' [id, article.title, article.description, article.url, article.age, article.source_id, article.urlToImage])
+}
+
 
 module.exports={fetchThreads, fetchThreadsById, fetchArticlesByThreadId, fetchKeywordsByThreadId}; 
