@@ -4,6 +4,9 @@ const {getThreads, getThreadsById, getArticlesByThreadId} = require('../controll
 
 router.get('/', getThreads);
 router.get('/:id', getThreadsById);
+router.get('/:id/articles', getArticlesByThreadId);
+
+
 
 
 

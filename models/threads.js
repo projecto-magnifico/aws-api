@@ -23,5 +23,9 @@ const fetchThreadsById = (id) => {
     return db.any('SELECT * FROM threads WHERE thread_id = $1', id);
 }
 
+const fetchArticlesByThreadId = (id) => {
+    return db.any('SELECT * FROM articles WHERE thread_id = $1', id)
+}
 
-module.exports={fetchThreads, fetchThreadsById}; 
+
+module.exports={fetchThreads, fetchThreadsById, fetchArticlesByThreadId}; 
