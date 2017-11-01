@@ -56,6 +56,9 @@ const addQuiz = (body, id) => {
     [id, body.question, body.state, body.revisited_date])
 }
 
+const updateAnswer = (body, id) => { 
+    return db.one('UPDATE answers SET proto = $1 WHERE answer_id = $2 returning *', [body.proto, id])
+}
 
 module.exports = {
     fetchQuizzes,

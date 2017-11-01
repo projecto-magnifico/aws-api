@@ -1,4 +1,5 @@
-const {addQuiz, fetchQuizzes, fetchQuizById, fetchAnswersByQuizId, fetchQuizzesByThreadId, fetchVariations, updateQuiz} = require('../models/quizzes')
+const {addQuiz, fetchQuizzes, fetchQuizById, fetchAnswersByQuizId, fetchQuizzesByThreadId, fetchVariations, 
+    updateQuiz, updateAnswer} = require('../models/quizzes')
 
 
 const getQuizzes = (req, res) => {
@@ -67,6 +68,12 @@ const postQuiz = (req, res) => {
         .then(quiz => res.send(quiz)); 
 }
 
+const patchAnswer = (req, res) => {
+    const {body} = req; 
+    const {id} =  req.params;
+    updateAnswer(body, id
+        .then(answer => res.send(answer))
+}
 
 module.exports = {
     getQuizzes, 
@@ -74,5 +81,6 @@ module.exports = {
     getQuizByThreadId, 
     getVariations, 
     patchQuiz, 
-    postQuiz   
+    postQuiz, 
+    patchAnswer 
 }
