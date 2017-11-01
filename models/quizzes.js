@@ -16,9 +16,28 @@ const fetchQuizById = (id) => {
 const fetchAnswersByQuizId = (id) => {
     return db.any('SELECT * FROM answers WHERE quiz_id = $1', id)
 }
+const fetchQuizzesByThreadId = (id) => {
+    return db.any(
+        `
+        SELECT * 
+        FROM (
+            SELECT *
+            FROM quizzes q
+            FULL OUTER JOIN answers a 
+            ON q.quiz_id = a.quiz_id
+        ) joined 
+        WHERE thread_id = $1;
+        ` , id
+    )
+}
 
+const fetchVariations = (id) => {
+    return db.any('SELECT * FROM variations WHERE answer_id = $1', id)
+}
 
 module.exports = {
     fetchQuizzes,
-    fetchQuizById
+    fetchQuizById, 
+    fetchAnswersByQuizId, 
+    fetchVariations
 }
