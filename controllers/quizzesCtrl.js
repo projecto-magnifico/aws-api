@@ -1,4 +1,4 @@
-const {fetchQuizzes, fetchQuizById} = require('../models/quizzes')
+const {fetchQuizzes, fetchQuizById, fetchAnswersByQuizId} = require('../models/quizzes')
 
 
 const getQuizzes = (req, res) => {
@@ -10,7 +10,19 @@ const getQuizzes = (req, res) => {
 const getQuizById = (req, res) => {
     const id = req.params.id; 
     fetchQuizById(id)
-        .then(quiz => res.s)
+        .then(quiz => {
+            fetchAnswersByQuizId(id)
+                .then(answers => {
+                    res.send({
+                        quizId: id, 
+                        question: quiz.question, 
+                        state: quiz.state, 
+                        revisit: quiz.revisited_date, 
+                        created: quiz.date_created, 
+                        answers: answers.map((answer) => {proto: answer.proto, votes: answer.votes})
+                    })
+                })
+        })
 }
 
 

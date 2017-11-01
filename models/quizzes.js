@@ -13,6 +13,10 @@ const fetchQuizById = (id) => {
     return db.one('SELECT * FROM quizzes WHERE quiz_id = $1', id)
 }
 
+const fetchAnswersByQuizId = (id) => {
+    return db.any('SELECT * FROM answers WHERE quiz_id = $1', id)
+}
+
 
 module.exports = {
     fetchQuizzes,

@@ -1,10 +1,10 @@
 const router = require('express').Router();
-const {getQuizzes, getQuizzesById} = require('../controllers/quizzesCtrl'); 
+const {getQuizzes, getQuizById} = require('../controllers/quizzesCtrl'); 
 
 
 
 router.get('/', getQuizzes); 
-router.get('/:id', getQuizzesById); 
+router.get('/:id', getQuizById); 
 
 
 
