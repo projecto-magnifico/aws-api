@@ -1,4 +1,4 @@
-const {fetchQuizzes} = require('../models/quizzes')
+const {fetchQuizzes, fetchQuizById} = require('../models/quizzes')
 
 
 const getQuizzes = (req, res) => {
@@ -7,10 +7,15 @@ const getQuizzes = (req, res) => {
         .then(quizzes => res.send(quizzes))
 }
 
-
+const getQuizById = (req, res) => {
+    const id = req.params.id; 
+    fetchQuizById(id)
+        .then(quiz => res.s)
+}
 
 
 
 module.exports = {
-    getQuizzes
+    getQuizzes, 
+    getQuizById
 }
