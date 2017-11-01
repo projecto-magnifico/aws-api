@@ -3,6 +3,15 @@ const config = require('../config');
 const db = pgp(config); 
 
 
+const ref = {
+    quizId: 'quiz_id', 
+    question: 'question', 
+    state: 'state', 
+    revisit: 'revisited_date', 
+    created: 'date_created', 
+    threadId: 'thread_id'
+}
+
 
 
 const fetchQuizzes = (count, restrictions) => {
@@ -36,16 +45,23 @@ const fetchVariations = (id) => {
 }
 
 const updateQuiz = (body, id) => {
-    Promise.all(Object.keys(body).map(key => {
-        db.none('UPDATE quizzes SET $1 = $2 WHERE quiz_id = $3' [key, body[key], id])
+    return Promise.all(Object.keys(body).map(key => {
+        return db.none('UPDATE quizzes SET $1 = $2 WHERE quiz_id = $3' [ref[key], body[ref[key]], id])
     }))
         .then(() => db.one('SELECT * FROM quizzes WHERE quiz_id = $1', id))
 }
+
+const addQuiz = (body, id) => {
+    return db.one('INSERT INTO quizzes (thread_id, question, state, revisited_date) VALUES ($1, $2, $3, $4) RETURNING *', 
+    [id, body.question, body.state, body.revisited_date])
+}
+
 
 module.exports = {
     fetchQuizzes,
     fetchQuizById, 
     fetchAnswersByQuizId, 
     fetchVariations, 
-    updateQuiz
+    updateQuiz, 
+    addQuiz
 }
