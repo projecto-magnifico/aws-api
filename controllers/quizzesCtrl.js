@@ -21,7 +21,7 @@ const getQuizById = (req, res) => {
                         state: quiz.state, 
                         revisit: quiz.revisited_date, 
                         created: quiz.date_created, 
-                        answers: answers.map((answer) => {proto: answer.proto, votes: answer.votes})
+                        answers: answers.map((answer) => ({proto: answer.proto, votes: answer.votes}))
                     })
                 })
         })
@@ -32,7 +32,7 @@ const getQuizByThreadId = (req, res) => {
     const thread_id = req.params.thread_id; 
     fetchQuizzesByThreadId(thread_id)
         .then(quizzes => {
-            const arr = quizzes.map(quiz => {
+            const arr = quizzes.map(quiz => ({
                 quizId: quiz.quiz_id, 
                 question: quiz.question, 
                 state: quiz.state, 
@@ -44,7 +44,7 @@ const getQuizByThreadId = (req, res) => {
                     }
                     return acc; 
                 }, []) 
-            });
+            }));
             res.send(arr);
         });
 }
@@ -83,8 +83,6 @@ const postAnswer = (req, res) => {
         .then(answer => res.send(answer))
 }
 
-
-
 module.exports = {
     getQuizzes, 
     getQuizById, 
@@ -92,5 +90,6 @@ module.exports = {
     getVariations, 
     patchQuiz, 
     postQuiz, 
-    patchAnswer 
+    patchAnswer,
+    postAnswer
 }

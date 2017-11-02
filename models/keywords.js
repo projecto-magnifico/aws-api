@@ -23,6 +23,6 @@ const updateKeyword = (body, id) => {
 
 module.exports = {
     fetchKeywords, 
-    fetchKeywordsById, 
+    fetchKeywordById, 
     updateKeyword
 }

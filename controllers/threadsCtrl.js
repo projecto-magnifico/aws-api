@@ -1,4 +1,4 @@
-const {fetchThreads, fetchThreadsById, fetchArticlesByThreadId, fetchKeywordsByThreadId, updateThreads, addArticleToThread} = require('../models/threads'); 
+const {fetchThreads, fetchThreadsById, fetchArticlesByThreadId, fetchKeywordsByThreadId, addArticleToThread} = require('../models/threads'); 
 
 const getThreads = (req, res) => {
     const {count, unnamed, summary} = req.query;

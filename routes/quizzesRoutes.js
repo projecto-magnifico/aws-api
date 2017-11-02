@@ -10,8 +10,8 @@ router.get('/:thread_id', getQuizByThreadId);
 router.get('/:answer_id/variations', getVariations); 
 router.patch('/:id', patchQuiz); 
 router.post('/:id', postQuiz); 
-roter.patch('/answers/:id', patchAnswer);
-roter.post('/answers/:id', postAnswer);
+router.patch('/answers/:id', patchAnswer);
+router.post('/answers/:id', postAnswer);
 
 
 
