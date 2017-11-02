@@ -8,7 +8,7 @@ const fetchKeywords = (count, untagged) => {
 }
 
 const fetchKeywordById = (id) => {
-    return db.one('SELECT * FROM keywords WHERE keyword_id = $1;', id)
+    return db.one('SELECT * FROM keywords WHERE thread_id = $1;', id)
 }
 
 const updateKeyword = (body, id) => {
