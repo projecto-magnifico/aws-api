@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "psql -f seed.sql && NODE_ENV=test nodemon server.js"
+    "test": "psql -f seed.sql && NODE_ENV=test nodemon server.js",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
