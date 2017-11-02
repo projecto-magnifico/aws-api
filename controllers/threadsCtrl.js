@@ -8,7 +8,7 @@ const getThreads = (req, res) => {
 
 const getThreadsById = (req, res) => {
     const id = req.query.id; 
-    fetchThreadsById(id); 
+    fetchThreadsById(id) 
         .then(threads => res.send(threads));
 }
 
