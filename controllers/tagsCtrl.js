@@ -1,4 +1,4 @@
-const postTag = require('')
+const postTag = require('../models/tags');
 
 
 
