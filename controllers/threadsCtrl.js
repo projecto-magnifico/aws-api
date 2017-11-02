@@ -3,19 +3,27 @@ const {fetchThreads, fetchThreadsById, fetchArticlesByThreadId, fetchKeywordsByT
 const getThreads = (req, res) => {
     const {count, unnamed, summary} = req.query;
     fetchThreads(count, unnamed, summary)
-        .then(threads => res.send(threads));
+        .then(threads => {
+            threads.summary=[threads.summary_1, threads.summary_2, threads.summary_3];
+            res.send(threads);
+        });
 }
 
 const getThreadsById = (req, res) => {
     const id = req.query.id; 
     fetchThreadsById(id) 
-        .then(threads => res.send(threads));
+        .then(threads => {
+            threads.summary=[threads.summary_1, threads.summary_2, threads.summary_3];
+            res.send(threads); 
+        });
 }
 
 const getArticlesByThreadId = (req, res) => {
     const id = req.query.id; 
     fetchArticlesByThreadId(id)
-        .then(threads => res.send(threads))    
+        .then(threads => {
+            res.send(threads) 
+        })    
 }
 
 const getKeywordsByThreadId = (req, res) => {

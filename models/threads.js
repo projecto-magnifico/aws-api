@@ -2,6 +2,7 @@ const pgp = require('pg-promise')({promiseLib: Promise});
 const config = require('../config'); 
 const db = pgp(config); 
 
+// threads summaries as arr
 const fetchThreads = (count, unnamed, summary) => {0
     if (!unnamed && !summary) {
         return db.any('SELECT TOP $1 * FROM threads ORDER BY score DESC;', count);
