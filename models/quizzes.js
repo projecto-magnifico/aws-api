@@ -15,7 +15,7 @@ const ref = {
 
 
 const fetchQuizzes = (count, restrictions) => {
-    return db.any('SELECT TOP $1 * FROM quizzes WHERE status = $2 ORDER BY date_created DESC', [count, restrictions])
+    return db.any('SELECT * FROM quizzes WHERE status = $2 ORDER BY date_created DESC LIMIT $1;', [count, restrictions])
 }
 
 const fetchQuizById = (id) => {

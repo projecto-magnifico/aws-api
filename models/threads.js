@@ -36,6 +36,7 @@ const fetchArticlesByThreadId = (id) => {
 }
 
 const fetchKeywordsByThreadId = (id) => {
+    console.log(id)
     return db.any('SELECT * FROM keywords WHERE thread_id = $1', id)
     .catch(console.error);
 }
@@ -58,4 +59,4 @@ const addArticleToThread = (article, id) => {
 }
 
 
-module.exports={fetchThreads, fetchThreadsById, fetchArticlesByThreadId, fetchKeywordsByThreadId}; 
+module.exports={fetchThreads, fetchThreadsById, fetchArticlesByThreadId, fetchKeywordsByThreadId, updateThreads}; 

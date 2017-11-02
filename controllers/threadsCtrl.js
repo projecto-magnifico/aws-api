@@ -1,4 +1,4 @@
-const {fetchThreads, fetchThreadsById, fetchArticlesByThreadId, fetchKeywordsByThreadId, addArticleToThread} = require('../models/threads'); 
+const {fetchThreads, fetchThreadsById, fetchArticlesByThreadId, fetchKeywordsByThreadId, addArticleToThread, updateThreads} = require('../models/threads'); 
 
 const getThreads = (req, res) => {
     const {count, unnamed, summary} = req.query;
@@ -10,16 +10,17 @@ const getThreads = (req, res) => {
 }
 
 const getThreadsById = (req, res) => {
-    const id = req.query.id; 
+    const id = req.params.id; 
     fetchThreadsById(id) 
         .then(threads => {
+            console.log(threads)
             threads.summary=[threads.summary_1, threads.summary_2, threads.summary_3];
             res.send(threads); 
         });
 }
 
 const getArticlesByThreadId = (req, res) => {
-    const id = req.query.id; 
+    const id = req.params.id; 
     fetchArticlesByThreadId(id)
         .then(threads => {
             res.send(threads) 
@@ -27,7 +28,7 @@ const getArticlesByThreadId = (req, res) => {
 }
 
 const getKeywordsByThreadId = (req, res) => {
-    const id = req.query.id; 
+    const id = req.params.id; 
         fetchKeywordsByThreadId(id)
             .then(threads => res.send(threads))    
     
