@@ -57,8 +57,9 @@ const addQuiz = (body, id) => {
 }
 
 const updateAnswer = (body, id, votes) => { 
-    return votes ? db.one('UPDATE answers SET proto = $1, votes = 0 WHERE answer_id = $2 returning *', [body.proto, id]):
-    b.one('UPDATE answers SET proto = $1 WHERE answer_id = $2 returning *', [body.proto, id])
+    return votes ? db.one('UPDATE answers SET proto = $1, votes = 0 WHERE quiz_id = $2 returning *', [body.proto, id]):
+    !body.votes ? db.one('UPDATE answers SET proto = $1 WHERE answer_id = $2 returning *', [body.proto, id]) : 
+    db.one('UPDATE answers SET votes = votes + 1 WHERE answer_id = $2 returning *')
 }
 
 module.exports = {
