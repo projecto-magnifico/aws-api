@@ -56,8 +56,9 @@ const addQuiz = (body, id) => {
     [id, body.question, body.state, body.revisited_date])
 }
 
-const updateAnswer = (body, id) => { 
-    return db.one('UPDATE answers SET proto = $1 WHERE answer_id = $2 returning *', [body.proto, id])
+const updateAnswer = (body, id, votes) => { 
+    return votes ? db.one('UPDATE answers SET proto = $1, votes = 0 WHERE answer_id = $2 returning *', [body.proto, id]):
+    b.one('UPDATE answers SET proto = $1 WHERE answer_id = $2 returning *', [body.proto, id])
 }
 
 module.exports = {

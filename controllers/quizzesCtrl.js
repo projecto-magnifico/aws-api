@@ -8,6 +8,7 @@ const getQuizzes = (req, res) => {
         .then(quizzes => res.send(quizzes))
 }
 
+//test
 const getQuizById = (req, res) => {
     const id = req.params.id; 
     fetchQuizById(id)
@@ -71,9 +72,18 @@ const postQuiz = (req, res) => {
 const patchAnswer = (req, res) => {
     const {body} = req; 
     const {id} =  req.params;
-    updateAnswer(body, id
+    updateAnswer(body, id, false)
         .then(answer => res.send(answer))
 }
+
+const postAnswer = (req, res) => {
+    const {body} = req; 
+    const {id} =  req.params;
+    updateAnswer(body, id, true)
+        .then(answer => res.send(answer))
+}
+
+
 
 module.exports = {
     getQuizzes, 
