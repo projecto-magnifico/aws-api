@@ -1,8 +1,12 @@
 const router = require('express').Router(); 
-const {getKeywords} = require('../controllers/keywordsCtrl'); 
+const {getKeywords, getKeywordById, patchKeyword} = require('../controllers/keywordsCtrl'); 
 
 
 router.get('/', getKeywords); 
+router.get('/:id', getKeywordById);
+router.patch('/:id', patchKeyword); 
+
+
 
 
 

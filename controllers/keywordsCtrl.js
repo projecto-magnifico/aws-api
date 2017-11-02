@@ -1,4 +1,4 @@
-const {fetchKeywords} = require('../models/keywords'); 
+const {fetchKeywords, fetchKeywordById, updateKeyword} = require('../models/keywords'); 
 
 
 const getKeywords = (req, res) => {
@@ -7,8 +7,23 @@ const getKeywords = (req, res) => {
         .then(keywords => res.send(keywords))
 }
 
+const getKeywordById = (req, res) => {
+    const id = req.params.id; 
+    fetchKeywordById(id)
+        .then(keyword => res.send(keyword))
+
+}
+
+const patchKeyword = (req, res) => {
+    const id = req.params.id; 
+    const {body} = req; 
+    updateKeyword(body, id)
+        .then(keyword => res.send(keyword))    
+}
 
 
 module.exports = {
-    getKeywords
+    getKeywords, 
+    getKeywordById, 
+    patchKeyword
 }

@@ -10,12 +10,12 @@ const fetchThreads = (count=10, unnamed, summary) => {
         return db.any('SELECT TOP $1 * FROM threads WHERE name IS NULL ORDER BY score DESC;', count);
     }
     else if (!unnamed && summary) {
-        return summary === 'null' ? db.any('SELECT TOP $1 * FROM threads WHERE summary IS NULL ORDER BY score DESC;', count) :
-        db.any('SELECT TOP $1 * FROM threads WHERE summary IS NULL OR date_created < DATEADD(d, -3, GETDATE()) ORDER BY score DESC;');
+        return summary === 'null' ? db.any('SELECT TOP $1 * FROM threads WHERE summary_1 IS NULL ORDER BY score DESC;', count) :
+        db.any('SELECT TOP $1 * FROM threads WHERE summary_1 IS NULL OR date_created < DATEADD(d, -3, GETDATE()) ORDER BY score DESC;');
     }
     else {
-        return summary === 'null' ? db.any('SELECT TOP $1 * FROM threads WHERE name IS NULL AND summary IS NULL ORDER BY score DESC;', count) :
-        db.any('SELECT TOP $1 * FROM threads WHERE name IS NULL AND (summary IS NULL OR date_created < DATEADD(d, -3, GETDATE())) ORDER BY score DESC;');
+        return summary === 'null' ? db.any('SELECT TOP $1 * FROM threads WHERE name IS NULL AND summary_1 IS NULL ORDER BY score DESC;', count) :
+        db.any('SELECT TOP $1 * FROM threads WHERE name IS NULL AND (summary_1 IS NULL OR date_created < DATEADD(d, -3, GETDATE())) ORDER BY score DESC;');
     }
 }
 
