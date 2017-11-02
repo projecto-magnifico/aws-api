@@ -115,4 +115,7 @@ INSERT INTO articles (thread_id, title, description, url, age, source_id) VALUES
 
 INSERT INTO keywords (word, thread_id, relevance) VALUES ('hi', 1, 0.8);
 
+INSERT INTO quizzes (thread_id, question, state) VALUES (1, '12345', '23456');
+
+
 

@@ -52,21 +52,29 @@ const updateQuiz = (body, id) => {
 }
 
 const addQuiz = (body, id) => {
-    return db.one('INSERT INTO quizzes (thread_id, question, state, revisited_date) VALUES ($1, $2, $3, $4) RETURNING *', 
-    [id, body.question, body.state, body.revisited_date])
+    return db.one('INSERT INTO quizzes (thread_id, question, state, revisit_date) VALUES ($1, $2, $3, $4) RETURNING *;', 
+    [id, body.question, body.state, body.revisit_date])
 }
 
-const updateAnswer = (body, id, votes) => { 
-    return votes ? db.one('UPDATE answers SET proto = $1, votes = 0 WHERE quiz_id = $2 returning *', [body.proto, id]):
-    !body.votes ? db.one('UPDATE answers SET proto = $1 WHERE answer_id = $2 returning *', [body.proto, id]) : 
-    db.one('UPDATE answers SET votes = votes + 1 WHERE answer_id = $2 returning *')
+// const updateAnswer = (body, id, votes) => { 
+//     return votes ? db.one('UPDATE answers SET proto = $1, votes = 0 WHERE quiz_id = $2 returning *', [body.proto, id]):
+//     !body.votes ? db.one('UPDATE answers SET proto = $1 WHERE answer_id = $2 returning *', [body.proto, id]) : 
+//     db.one('UPDATE answers SET votes = votes + 1 WHERE answer_id = $2 returning *')
+// }
+
+const addAnswer = (body,id) => {
+
+    return db.one('INSERT INTO answers (proto,quiz_id,votes) VALUES ($1,$2,0) RETURNING *;',[body.proto, id])
 }
+
 
 module.exports = {
     fetchQuizzes,
     fetchQuizById, 
     fetchAnswersByQuizId, 
     fetchVariations, 
-    updateQuiz, 
-    addQuiz
+    // updateQuiz, 
+    addQuiz, 
+    fetchQuizzesByThreadId,
+    addAnswer
 }

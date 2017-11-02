@@ -44,6 +44,7 @@ const fetchKeywordsByThreadId = (id) => {
 //add functionality to update each of the 3 summmary columns - also will only patch one col at a time so drop Promise.all
 const updateThreads = (body, id) => {
     return Promise.all(Object.keys(body).map(column => {
+        console.log(column);
         return db.none('UPDATE threads SET $1 = $2 WHERE thread_id = $3 RETURNING *;', [column, body[column], id])
         .catch(console.error);
     }))

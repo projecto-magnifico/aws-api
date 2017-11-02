@@ -1,5 +1,5 @@
-const {addQuiz, fetchQuizzes, fetchQuizById, fetchAnswersByQuizId, fetchQuizzesByThreadId, fetchVariations, 
-    updateQuiz, updateAnswer} = require('../models/quizzes')
+const {addQuiz, addAnswer, fetchQuizzes, fetchQuizById, fetchAnswersByQuizId, fetchQuizzesByThreadId, fetchVariations, 
+    updateQuiz} = require('../models/quizzes')
 
 
 const getQuizzes = (req, res) => {
@@ -40,7 +40,7 @@ const getQuizByThreadId = (req, res) => {
                 created: quiz.date_created, 
                 answers: quizzes.reduce((acc, ans) => {
                     if (ans.quiz_id === quiz.quiz_id) {
-                        acc.push({proto: answer.proto, votes: answer.votes});
+                        acc.push({proto: ans.proto, votes: ans.votes});
                     }
                     return acc; 
                 }, []) 
@@ -78,8 +78,8 @@ const patchAnswer = (req, res) => {
 
 const postAnswer = (req, res) => {
     const {body} = req; 
-    const {id} =  req.params;
-    updateAnswer(body, id, true)
+    const {quiz_id} =  req.params;
+    addAnswer(body, quiz_id)
         .then(answer => res.send(answer))
 }
 

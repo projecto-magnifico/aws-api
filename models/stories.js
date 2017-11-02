@@ -9,7 +9,7 @@ const {fetchQuizzesByThreadId} = require('./quizzes');
 
 
 const fetchStories = () => {
-    db.any('SELECT TOP 10 * FROM threads ORDER BY score')
+    return db.any('SELECT * FROM threads ORDER BY score LIMIT 10;')
         .then(threads => {
             return threads.map(thread => {
                 const obj = {
@@ -17,15 +17,19 @@ const fetchStories = () => {
                     score: thread.score, 
                     summary: [thread.summary_1, thread.summary_2, thread.summary_3]
                 }
-                fetchArticlesByThreadId(thread.thread_id)
+               return  fetchArticlesByThreadId(thread.thread_id)
                     .then(articles => {
                         obj.articles = articles;
-                        fetchKeywordById(thread.thread_id)
+                        // console.log(articles,"3")
+                        return fetchKeywordById(thread.thread_id)
                             .then(keywords => {
                                 obj.keywords = keywords; 
-                                fetchQuizzesByThreadId(thread.thread_id)
+                                // console.log(keywords,"4")
+                               return  fetchQuizzesByThreadId(thread.thread_id)
                                     .then(quizzes => {
+                                        // console.log(quizzes,"5")
                                         obj.quizzes = quizzes; 
+                                        // console.log(obj,"OBJ")
                                         return obj
                                     })
                             })

@@ -6,12 +6,12 @@ const {getQuizzes, getQuizById, getQuizByThreadId, getVariations, patchQuiz, pos
 
 router.get('/', getQuizzes); 
 router.get('/:id', getQuizById); 
-router.get('/:thread_id', getQuizByThreadId); 
+router.get('/threads/:thread_id', getQuizByThreadId); //
 router.get('/:answer_id/variations', getVariations); 
 router.patch('/:id', patchQuiz); 
 router.post('/:id', postQuiz); 
 router.patch('/answers/:id', patchAnswer);
-router.post('/answers/:id', postAnswer);
+router.post('/answers/:quiz_id', postAnswer);
 
 
 
