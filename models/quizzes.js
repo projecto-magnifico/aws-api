@@ -19,11 +19,11 @@ const fetchQuizzes = (count, restrictions) => {
 }
 
 const fetchQuizById = (id) => {
-    return db.one('SELECT * FROM quizzes WHERE quiz_id = $1', id)
+    return db.one('SELECT * FROM quizzes WHERE quiz_id = $1;', id)
 }
 
 const fetchAnswersByQuizId = (id) => {
-    return db.any('SELECT * FROM answers WHERE quiz_id = $1', id)
+    return db.any('SELECT * FROM answers WHERE quiz_id = $1;', id)
 }
 const fetchQuizzesByThreadId = (id) => {
     return db.any(
@@ -41,14 +41,14 @@ const fetchQuizzesByThreadId = (id) => {
 }
 
 const fetchVariations = (id) => {
-    return db.any('SELECT * FROM variations WHERE answer_id = $1', id)
+    return db.any('SELECT * FROM variations WHERE answer_id = $1;', id)
 }
 
 const updateQuiz = (body, id) => {
     return Promise.all(Object.keys(body).map(key => {
-        return db.none('UPDATE quizzes SET $1 = $2 WHERE quiz_id = $3' [ref[key], body[ref[key]], id])
+        return db.none('UPDATE quizzes SET $1 = $2 WHERE quiz_id = $3;' [ref[key], body[ref[key]], id])
     }))
-        .then(() => db.one('SELECT * FROM quizzes WHERE quiz_id = $1', id))
+        .then(() => db.one('SELECT * FROM quizzes WHERE quiz_id = $1;', id))
 }
 
 const addQuiz = (body, id) => {
