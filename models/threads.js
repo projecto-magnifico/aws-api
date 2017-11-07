@@ -3,16 +3,16 @@ const config = require('../config');
 const db = pgp(config); 
 
 // threads summaries as arr
-const fetchThreads = (count, unnamed, summary) => {
-    if (!unnamed && !summary) {
+const fetchThreads = (count, named, summary) => {
+    if (named && !summary) {
         return db.any('SELECT * FROM threads WHERE name IS NOT NULL AND summary_1 IS NULL ORDER BY score DESC LIMIT $1;', count)
         .catch(console.error);
     }
-    else if (unnamed && !summary) {
+    else if (!named && !summary) {
         return db.any('SELECT * FROM threads WHERE name IS NULL AND summary_1 IS NULL ORDER BY score DESC LIMIT $1;', count)
         .catch(console.error);
     }
-    else if (!unnamed && summary) {
+    else if (named && summary) {
         return summary === 'null' ? db.any('SELECT * FROM threads WHERE summary_1 IS NULL AND name IS NOT NULL ORDER BY score DESC LIMIT $1;', count) :
         db.any('SELECT * FROM threads WHERE summary_1 IS NULL OR date_created < DATEADD(d, -3, GETDATE()) ORDER BY score DESC LIMIT $1;')
         .catch(console.error);
@@ -21,7 +21,6 @@ const fetchThreads = (count, unnamed, summary) => {
         return summary === 'null' ? db.any('SELECT * FROM threads WHERE name IS NULL AND summary_1 IS NULL ORDER BY score DESC LIMIT $1;', count) :
         db.any('SELECT * FROM threads WHERE name IS NULL AND (summary_1 IS NULL OR date_created < DATEADD(d, -3, GETDATE())) ORDER BY score DESC LIMIT $1;', count)
         .catch(console.error);
-
     }
 }
 
