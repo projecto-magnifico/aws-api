@@ -1,6 +1,4 @@
-const pgp = require('pg-promise')({promiseLib: Promise}); 
-const config = require('../config'); 
-const db = pgp(config); 
+const db = require('../');
 
 // threads summaries as arr
 const fetchThreads = (count, named, summary) => {

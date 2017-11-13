@@ -1,6 +1,4 @@
-const pgp = require('pg-promise')({promiseLib: Promise}); 
-const config = require('../config'); 
-const db = pgp(config); 
+const db = require('../');
 
 const fetchKeywords = (count, untagged) => {
     return untagged ? db.any('SELECT * FROM keywords tag_id IS NULL LIMIT $1;', count) :
@@ -19,7 +17,6 @@ const updateKeyword = (body, id) => {
             return db.one('SELECT * FROM keywords WHERE keyword_id = $1;', id)
         })
 }
-
 
 module.exports = {
     fetchKeywords, 

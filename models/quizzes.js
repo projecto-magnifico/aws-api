@@ -1,7 +1,4 @@
-const pgp = require('pg-promise')({promiseLib: Promise}); 
-const config = require('../config'); 
-const db = pgp(config); 
-
+const db = require('../');
 
 const ref = {
     quizId: 'quiz_id', 

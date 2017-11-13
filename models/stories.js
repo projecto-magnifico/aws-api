@@ -1,12 +1,7 @@
-const pgp = require('pg-promise')({promiseLib: Promise}); 
-const config = require('../config'); 
-const db = pgp(config); 
+const db = require('../');
 const {fetchArticlesByThreadId} = require('./threads'); 
 const {fetchKeywordById} =require('./keywords');
 const {fetchQuizzesByThreadId} = require('./quizzes'); 
-
-
-
 
 const fetchStories = () => {
     return db.any('SELECT * FROM threads ORDER BY score LIMIT 10;')
