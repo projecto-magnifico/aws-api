@@ -6,6 +6,7 @@ const fetchStories = () => {
     return db.any('SELECT * FROM threads ORDER BY score LIMIT 10;')
         .then(threads => {
             return Promise.all(threads.map(thread => {
+                console.log('#########THREAD', thread);
                 const obj = {
                     name: thread.name,
                     score: thread.score, 
@@ -17,6 +18,9 @@ const fetchStories = () => {
                     fetchQuizzesByThreadId(thread.thread_id)  
                 ])
                 .then((articles, keywords, quizzes) => {
+                    console.log('ARTICLES', articles)
+                    console.log('KEYWORDS', keywords)
+                    console.log('QUIZZES', quizzes)
                     obj.articles = articles;
                     obj.keywords = keywords;
                     obj.quizzes = quizzes;
