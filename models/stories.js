@@ -13,12 +13,15 @@ const fetchStories = () => {
                     summary: [thread.summary_1, thread.summary_2, thread.summary_3]
                 }
                 return Promise.all([
-                    fetchArticlesByThreadId(thread.thread_id),
+                    fetchArticlesByThreadId(thread.thread_id)
+                    .then(articles => {
+                        console.log('ARTICLES', articles)        
+                    }),
                     fetchKeywordsByThreadId(thread.thread_id),
                     fetchQuizzesByThreadId(thread.thread_id)  
                 ])
                 .then((articles, keywords, quizzes) => {
-                    console.log('ARTICLES', articles)
+                    
                     console.log('KEYWORDS', keywords)
                     console.log('QUIZZES', quizzes)
                     obj.articles = articles;
