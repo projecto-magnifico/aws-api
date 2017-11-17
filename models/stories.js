@@ -1,6 +1,5 @@
 const db = require('../');
-const {fetchArticlesByThreadId} = require('./threads'); 
-const {fetchKeywordById} =require('./keywords');
+const {fetchArticlesByThreadId, fetchKeywordsByThreadId} = require('./threads'); 
 const {fetchQuizzesByThreadId} = require('./quizzes'); 
 
 const fetchStories = () => {
@@ -14,7 +13,7 @@ const fetchStories = () => {
                 }
                 return Promise.all([
                     fetchArticlesByThreadId(thread.thread_id),
-                    fetchKeywordById(thread.thread_id),
+                    fetchKeywordsByThreadId(thread.thread_id),
                     fetchQuizzesByThreadId(thread.thread_id)  
                 ])
                 .then((articles, keywords, quizzes) => {
