@@ -1,6 +1,7 @@
 const router = require('express').Router();
-const tagsCtrl = require('../controllers/tagsCtrl')
+const {getTags, addTag} = require('../controllers/tagsCtrl')
 
-router.post('/',tagsCtrl)
+router.get('/', getTags);
+router.post('/',addTag);
 
 module.exports=router;

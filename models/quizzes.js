@@ -43,7 +43,7 @@ const fetchVariations = (id) => {
 
 const updateQuiz = (body, id) => {
     return Promise.all(Object.keys(body).map(key => {
-        return db.none('UPDATE quizzes SET $1 = $2 WHERE quiz_id = $3;' [ref[key], body[ref[key]], id])
+        return db.none('UPDATE quizzes SET $1 = $2 WHERE quiz_id = $3;', [ref[key], body[ref[key]], id])
     }))
         .then(() => db.one('SELECT * FROM quizzes WHERE quiz_id = $1;', id))
 }
@@ -70,7 +70,7 @@ module.exports = {
     fetchQuizById, 
     fetchAnswersByQuizId, 
     fetchVariations, 
-    // updateQuiz, 
+    updateQuiz, 
     addQuiz, 
     fetchQuizzesByThreadId,
     addAnswer

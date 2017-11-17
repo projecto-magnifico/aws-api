@@ -1,5 +1,10 @@
 const db = require('../');
 
+const fetchTags = () => {
+    return db.any('SELECT * FROM tags')
+    .catch(console.error);
+}
+
 const postTag = (tag) => {
     return db.one('INSERT INTO tags (name, type, detail) VALUES ($1, $2, $3);', [tag.name, tag.type, tag.detail])
     .then(res => {
@@ -8,4 +13,4 @@ const postTag = (tag) => {
     .catch(console.error);
 }
 
-module.exports = postTag
+module.exports = {fetchTags, postTag}
