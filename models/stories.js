@@ -3,7 +3,7 @@ const {fetchArticlesByThreadId, fetchKeywordsByThreadId} = require('./threads');
 const {fetchQuizzesByThreadId} = require('./quizzes'); 
 
 const fetchStories = () => {
-    return db.any('SELECT * FROM threads ORDER BY score DESC LIMIT 10;')
+    return db.any('SELECT * FROM threads ORDER BY score DESC LIMIT 2;')
         .then(threads => {
             return Promise.all(threads.map(thread => {
                 console.log('#########THREAD', thread);
